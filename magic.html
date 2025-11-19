@@ -1,39 +1,129 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+<meta charset="UTF-8">
 <title>Magic Challenge</title>
 
 <style>
-    body {
-        margin: 0;
-        font-family: Arial, sans-serif;
-        background: white;
-        padding-top: 120px;
-        overflow: hidden;
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #ffffff;
+  }
+
+  /* Detect mobile: hide main content, show mobile block */
+  @media (max-width: 900px) {
+    #desktop {
+      display: none;
     }
-
-    /* Block mobile devices */
-    @media (max-width: 768px) {
-        body::before {
-            content: "This challenge is desktop only. Please switch to desktop mode.";
-            font-size: 20px;
-            text-align: center;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            padding: 20px;
-            background: #fff;
-            border-radius: 12px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.15);
-        }
-
-        #game-area, #magic-btn {
-            display: none;
-        }
+    #mobile {
+      display: block;
+      padding: 40px;
+      font-size: 22px;
+      text-align: center;
     }
+  }
 
-    /* Glass Navigation Bar */
+  @media (min-width: 901px) {
+    #mobile {
+      display: none;
+    }
+  }
+
+  /* Glass navigation bar */
+  .navbar {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(20px);
+    padding: 12px 40px;
+    border-radius: 40px;
+    display: flex;
+    gap: 40px;
+    box-shadow: 0px 4px 20px rgba(0,0,0,0.1);
+  }
+
+  .nav-btn {
+    text-decoration: none;
+    font-size: 20px;
+    color: black;
+  }
+
+  /* Magic section */
+  #game-area {
+    margin-top: 180px;
+    text-align: center;
+  }
+
+  #magicBtn {
+    padding: 15px 30px;
+    border: none;
+    font-size: 24px;
+    border-radius: 10px;
+    background: #eaeaea;
+    cursor: pointer;
+    transition: 0.18s;
+    position: relative;
+  }
+</style>
+</head>
+<body>
+
+<!-- MOBILE BLOCKED -->
+<div id="mobile">
+  ❌ **Magic feature is only available on desktop mode.**  
+  Please switch to a laptop or open in desktop view.
+</div>
+
+<!-- DESKTOP CONTENT -->
+<div id="desktop">
+
+  <!-- Navigation Bar -->
+  <div class="navbar">
+    <a class="nav-btn" href="index.html">Portfolio</a>
+    <a class="nav-btn" href="magic.html">Magic</a>
+  </div>
+
+  <!-- Magic Game -->
+  <div id="game-area">
+    <h1>Catch the Button Challenge!</h1>
+    <p>Try to click the button. It will dodge your mouse 😈</p>
+    <p>Tip: Use SPACEBAR to win.</p>
+
+    <button id="magicBtn">Press me</button>
+
+    <p id="message" style="font-size:22px; margin-top:20px;"></p>
+  </div>
+
+</div>
+
+<script>
+  const btn = document.getElementById("magicBtn");
+  const msg = document.getElementById("message");
+
+  // Button dodges when hovered
+  btn.addEventListener("mouseover", () => {
+    const randX = Math.random() * 500 - 250;
+    const randY = Math.random() * 300 - 150;
+
+    btn.style.transform = `translate(${randX}px, ${randY}px)`;
+  });
+
+  // Space key wins
+  document.addEventListener("keydown", function(e) {
+    if (e.code === "Space") {
+      msg.textContent = "🎉 Congrats! You solved the trick!";
+      setTimeout(() => {
+        msg.textContent = "Try again!";
+      }, 2000);
+    }
+  });
+</script>
+
+</body>
+</html>
     .navbar {
         position: fixed;
         top: 20px;
